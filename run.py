@@ -1,69 +1,114 @@
 import pandas as pd
 import glob
-import numpy as np
 import csv
+import re
+import numpy as np
 
-#load dataframe, index_col = 0 uses 0 column as index
-df = pd.read_csv('Data/translink-api-example.csv')
-df.rename(columns={'Unnamed: 0': 'Row Number'}, inplace=True)
+def init_summary_csv():
+    csv_list = search_csv()
+    with open('output/summary.csv', 'w') as csvFile:
+        writer = csv.writer(csvFile, delimiter = ' ')
+        writer.writerow(['Total Number of CSV files: '+str(len(csv_list))])
+        csvFile.close()
+    return("summary.csv initialized")
 
-#get rows and columns
-n_rows = df.shape[0]
-n_columns = df.shape[1]
+def search_csv():
+    extension = 'csv'
 
-#write the title of the csv file
-with open('output/update.csv', 'w') as csvFile:
+    #grab all results with .csv
+    result = glob.glob('*.{}'.format(extension))
+    return(result)
 
-    #declare csv writer, delimiter = ' ' for writing stuff into a once cell
-    writer = csv.writer(csvFile, delimiter = ' ')
-    #insert file name
-    writer.writerow(['File Name : update.csv'])
-    #insert number of rows
-    writer.writerow(["There are " +str(n_rows) + " rows"])
-    #insert number of columns
-    writer.writerow(["There are " +str(n_columns) + " columns"])
-csvFile.close()
+def my_read_csv(csvname):
 
-# Create Summary Dictionary
-my_dict = {}
-for items in df.columns:
-    #unique items
-    a = df[(items)].unique()
-    #sort unique items
-    a = np.sort(a)
-    #create list of highest and lowest values after sort
-    values = [a[0],a[-1]]
-    #add list to dictionary
-    my_dict.update([ (items, values)])
+    #for csvs in list_of_csv:
+        #specify list of delimiters
+    delimiter_list = [';']
 
-# Create Summary Dataframe
-summary3 = pd.DataFrame.from_dict(my_dict)
-summary3 = summary3.rename(index={0: "Lowest-value", 1: "Highest-Value"})
+    #read file
 
-# Write first and last rows to csv
-with open('output/update.csv', 'a') as csvfile:
-    fieldnames =df.columns
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
+    #### THIS LINE IS CAUSING PROBLEMS, CREATE ERROR
+    df = pd.read_csv(csvname)
+    #check the first column of a csv, see if there are any delimiters, if there are, use that to read
+    for items in delimiter_list:
+        x = re.findall(items, df.columns[0])
+        if len(x) > 0:
+            df = pd.read_csv(csvname, items)
+    # Check to see if the first column is Row ID
+    if df.columns[0] != 'Unnamed: 0':
+        index =range(df.shape[0])
+        df.insert(0, "Row #", index)
 
-    #unpack dictionary
-    for i in range(2):
-        #declare dictionary
-        dict1 = {}
-        for items in my_dict:
-            #append items into dict1
-            dict1.update([ (items, my_dict[items][i])])
-        writer.writerow(dict1)
-    writer_linebreak = csv.writer(csvFile, delimiter = ' ')
+    return(df)
+
+def write_csv_info(df,csv_name):
+    n_rows = df.shape[0]
+    n_columns = df.shape[1] - 1
+
+
+    with open('output/summary.csv', 'a') as csvFile:
+
+        #declare csv writer, delimiter = ' ' for writing stuff into a once cell
+        writer = csv.writer(csvFile, delimiter = ' ')
+        #excute a writerow command, can be list, dictionary, etc.
+
+        #insert file name
+        writer.writerow(['File Name : '+str(csv_name)])
+        #insert number of rows
+        writer.writerow(["There are " +str(n_rows) + " rows"])
+        #insert number of columns
+        writer.writerow(["There are " +str(n_columns) + " columns"])
+    csvFile.close()
+    return('summary.csv has been updated with ' +str(csv_name) + " title")
+
+def write_csv_rows(df):
+    # Create Summary Dictionary
+
+    my_dict = {}
+    my_dict.update([(0, df.loc[0,:]),(1, df.loc[1,:])])
+    summary = pd.DataFrame.from_dict(my_dict)
+    summary = summary.T
+
+    #need to add an index if df doesnt come with one
+    summary = summary.rename(columns={"Unnamed: 0": "Row #"})
+    with open('output/summary.csv', 'a') as csvfile:
+        fieldnames =summary.columns
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        #unpack dictionary
+        for i in range(2):
+            #declare dictionary
+            dict1 = {}
+            for items in summary.columns:
+                #append items into dict1
+                dict1.update([ (items, summary[items][i])])
+            writer.writerow(dict1)
+        writer_linebreak = csv.writer(csvfile, delimiter = ' ')
 
 # Create a linebreak for the next csv
-with open('output/update.csv', 'a') as csvFile:
+def write_csv_linebreak(df):
+    with open('output/summary.csv', 'a') as csvFile:
 
-    #declare csv writer, delimiter = ' ' for writing stuff into a once cell
-    writer = csv.writer(csvFile, delimiter = ' ')
-    #excute a writerow command, can be list, dictionary, etc.
+        #declare csv writer, delimiter = ' ' for writing stuff into a once cell
+        writer = csv.writer(csvFile, delimiter = ' ')
+        #excute a writerow command, can be list, dictionary, etc.
 
-    #insert linebreak
-    writer.writerow([" "])
-    #insert number of columns
-csvFile.close()
+        #insert linebreak
+        writer.writerow([" "])
+        #insert number of columns
+    csvFile.close()
+
+# Run this block to produce a summary.csv
+csv_list = search_csv()
+init_summary_csv()
+for items in csv_list:
+    #print(items)
+    try:
+        df = my_read_csv(items)
+        write_csv_info(df, items)
+        write_csv_rows(df)
+        write_csv_linebreak(df)
+        print(str(items)+" completed")
+    except:
+        print(str(items)+" was not included")

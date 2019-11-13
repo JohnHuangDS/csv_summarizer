@@ -1,7 +1,0 @@
-"File Name : update.csv"
-"There are 385 rows"
-"There are 11 columns"
-Row Number,Destination,Direction,Latitude,Longitude,Pattern,RecordedTime,RouteMap.Href,RouteNo,TripId,VehicleNo
-0,15TH STREET,EAST,0.0,-123.2734,E1,09:33:25 pm,https://nb.translink.ca/geodata/002.kmz,2,10761016,1507
-384,WHITE ROCK SOUTH,WEST,49.35965,0.0,WBWKND4,09:47:13 pm,https://nb.translink.ca/geodata/701.kmz,701,11155064,81217
-" "
