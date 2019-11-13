@@ -1,0 +1,29 @@
+"Total Number of CSV files: 4"
+"File Name : data/aadw_2017.csv"
+"There are 3084 rows"
+"There are 13 columns"
+Row #,Section ID,STD Street,Block Num,Direction,Year,Day of Week,AADW,Hr Cnt,X,Y,Longitude,Latitude,geopoint
+0,166.0,W GEORGIA ST,1900.0,E,2016.0,Monday,30946.0,1080.0,490110.9378,5460154.7895,-123.13600511799999,49.2940601959,"49.2940601959,-123.136005118"
+1,166.0,W GEORGIA ST,1900.0,E,2016.0,Wednesday,32764.0,1080.0,490110.9378,5460154.7895,-123.13600511799999,49.2940601959,"49.2940601959,-123.136005118"
+" "
+"File Name : data/ambulance_data.csv"
+"There are 16127 rows"
+"There are 13 columns"
+Row #,CALL_LOCATION,MPDS_SUFFIX,COLLISION_DATE,COLLISION_Hour,SEVERITY,Patient Transported,AGE_GROUP,X,Y,Long,Lat,Location Name,geopoint
+0,Vancouver,Auto vs. bicycle/motorcycle,2013-01-01,12-14,3-Missing,Y,60-79,492654.5093,5456688.1895,-123.100959559,49.2629134052,E BROADWAY AND MAIN ST,"49.2629134052,-123.100959559"
+1,Vancouver,Auto vs. pedestrian,2013-01-07,06-08,1-Serious,N,15-29,494924.2313,5456619.5925,-123.06976269100001,49.262319409300005,E BROADWAY AND COMMERCIAL DRIVE,"49.2623194093,-123.069762691"
+" "
+"File Name : data/continuous-average-annual-hourly-traffic.csv"
+"There are 74016 rows"
+"There are 14 columns"
+Row #,Section ID,STD Street,Block Num,Direction,Year,Day of Week,Hour of Day,AAHW,Hr Cnt,Longitude,Latitude,X,Y,geopoint
+0,187.0,E 1ST AV,3100.0,E,2011,Wednesday,13.0,1554.0,39.0,-123.037693514,49.269473854,497257.9053,5457413.2945,"49.269473854,-123.037693514"
+1,177.0,E HASTINGS ST,100.0,E,2010,Sunday,16.0,510.0,44.0,-123.100951943,49.281360162700004,492657.801621,5458738.92134,"49.2813601627,-123.100951943"
+" "
+"File Name : data/hose-count-traffic-volumes-2014-to-2017.csv"
+"There are 298036 rows"
+"There are 7 columns"
+Row #,Section ID,STD Street,Block Num,Direction,Start Date,Hour,Number of Vehicles
+0,3125.0,POINT GREY ROAD,3000,E,4/4/2016,7.0,14.0
+1,202.0,ADANAC ST,3600,E,11/12/2016,15.0,131.0
+" "

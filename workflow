@@ -11,8 +11,6 @@ For each CSV:
   write linebreak in summary csv
 
 TODO:
-Add csvs that are public
-Figure out what to do with loop tests that don't load properly (currently senior-homes)
 Detailed string matching for structure of folders
 How to move files around with python
 
@@ -45,7 +43,7 @@ unit_test folder
 
 Create Unit test for each file
 
-November 12th, 2018
+November 12th, 2019
 Version 1.1
 
 Finish unit testing for aadw_2017_UT.ipynb
@@ -57,3 +55,8 @@ Correct title in loop testing bug
 Updated run.py
 
 Moved data offline
+
+November 13th, 2019
+
+Improved my_read_csv
+	completed (Figure out what to do with loop tests that don't load properly (currently senior-homes)
