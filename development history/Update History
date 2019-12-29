@@ -1,20 +1,4 @@
 Work flow
-
-
-1.
-Create a script that:
-  reads multiple csv files in a folder
-    check if the correct delimiter was used
-For each CSV:
-  write title and row/column count into summary csv
-  write first and last column into summary csv
-  write linebreak in summary csv
-
-TODO:
-Detailed string matching for structure of folders
-How to move files around with python
-
-
 Completed:
 
 Version 1.0
@@ -60,3 +44,7 @@ November 13th, 2019
 
 Improved my_read_csv
 	completed (Figure out what to do with loop tests that don't load properly (currently senior-homes)
+
+December 28th, 2019
+
+Renamed files and updated README
